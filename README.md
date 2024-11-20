@@ -13,5 +13,5 @@ Backend: Spring Boot (Java)
 Database: MySQL/PostgreSQL (or specify the database used)
 Build Tool: Maven
 Authentication: Spring Security with JWT
-API Documentation: Swagger (if applicable)
+API Documentation: Swagger 
 Testing: JUnit
