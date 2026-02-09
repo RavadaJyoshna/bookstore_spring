@@ -89,6 +89,23 @@ function getMockCanaryData(country = null) {
 }
 
 let mainChart = null;
+// ============================================
+// Helper: place marker using chart projection
+// ============================================
+function placeMarker(chart, markerEl, lat, lng, onClick) {
+  if (!chart || !markerEl) return;
+
+  const point = chart.scales.projection.project([lng, lat]);
+
+  markerEl.style.left = point.x + 'px';
+  markerEl.style.top = point.y + 'px';
+  markerEl.style.display = 'block';
+
+  markerEl.onclick = function (e) {
+    e.stopPropagation();
+    onClick();
+  };
+}
 
 // Initialize dashboard - fetch data and draw map
 document.addEventListener('DOMContentLoaded', async function() {
@@ -395,51 +412,53 @@ function drawWorldMap() {
       });
       
       // Add visible marker dots for all countries after chart is created
+// Add visible marker dots for all countries after chart is created
 setTimeout(() => {
-  const chart = mainChart;
 
   placeMarker(
-    chart,
+    mainChart,
     document.getElementById('usaMarker'),
     39.8283, -98.5795,
     () => showCanaryGroups('United States of America')
   );
 
   placeMarker(
-    chart,
+    mainChart,
     document.getElementById('irelandMarker'),
     53.4129, -8.2439,
     () => showCanaryGroups('Ireland')
   );
 
   placeMarker(
-    chart,
+    mainChart,
     document.getElementById('hongkongMarker'),
     22.3193, 114.1694,
     () => showCanaryGroups('Hong Kong')
   );
 
   placeMarker(
-    chart,
+    mainChart,
     document.getElementById('singaporeMarker'),
     1.3521, 103.8198,
     () => showCanaryGroups('Singapore')
   );
 
   placeMarker(
-    chart,
+    mainChart,
     document.getElementById('brazilMarker'),
     -14.2350, -51.9253,
     () => showCanaryGroups('Brazil')
   );
 
   placeMarker(
-    chart,
+    mainChart,
     document.getElementById('indiaMarker'),
     20.5937, 78.9629,
     () => showCanaryGroups('India')
   );
+
 }, 500);
+
 
 // Function to show canary groups for a country
 async function showCanaryGroups(country) {
